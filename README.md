@@ -133,10 +133,15 @@ menuentry "arch" --id "arch" {
   insmod gzio
   echo "Arch Linux boot option .."
   set root='hd0,gpt1'
-  linux /boot/vmlinuz-linux root=/dev/sda1
+  linux /boot/vmlinuz-linux root=UUID=12ab34cd-56ef-78ab-90cd-12ef34ab56cd rw
   initrd /boot/initramfs-linux.img
 }
 ```
+
+NOTE: You'll probably want to use UUIDs instead of /dev/sdXX to avoid boot
+issues when adding and removing HDDs and USB drives.
+And remember to set `rw` to getting the 'The root device is not configured to be
+mounted read-write.' error message.
 
 
 Lastly, I found that since this system is running headless it can be hard to
@@ -219,9 +224,3 @@ And run the command again..
 Since the TOS USB was so small, I decided to dump the image to have a backup
 in case I ever wanted to go back.
 I've included the image as the 'UTOSBOOT-X86-S64.img'.
-
-
-Oh, and since I can't access the BIOS I can't change the boot order, so I
-noticed I had to unplug all other disks and USBs when booting. Otherwise the
-system would end up trying to boot the wrong media.
-The media can be plugged back in after boot (the beep is handy here).
